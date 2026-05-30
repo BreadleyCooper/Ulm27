@@ -59,6 +59,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1491557345352-5929e343eb89?w=800&q=80",
     color: "#2d6a4f",
+    price: "",
   },
   {
     id: "ghent",
@@ -81,6 +82,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1559329255-5c9b3f0f9e8e?w=800&q=80",
     color: "#1b4332",
+    price: "",
   },
   {
     id: "utrecht",
@@ -104,6 +106,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80",
     color: "#1d3557",
+    price: "",
   },
   {
     id: "cologne",
@@ -126,6 +129,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?w=800&q=80",
     color: "#3d2b1f",
+    price: "",
   },
   {
     id: "heidelberg",
@@ -149,6 +153,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1599946347371-68eb71b16afc?w=800&q=80",
     color: "#4a2040",
+    price: "",
   },
   {
     id: "ulm",
@@ -171,6 +176,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=800&q=80",
     color: "#1a3a4a",
+    price: "",
   },
   {
     id: "iseltwald",
@@ -194,6 +200,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
     color: "#1a4a3a",
+    price: "",
   },
   {
     id: "colmar",
@@ -216,6 +223,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1589083130544-0d6a2926e519?w=800&q=80",
     color: "#5c2a0e",
+    price: "",
   },
   {
     id: "reims",
@@ -239,6 +247,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1548018560-c7196548a4f8?w=800&q=80",
     color: "#2a1a4a",
+    price: "",
   },
   {
     id: "home",
@@ -677,6 +686,40 @@ function StopSlide({ stop }) {
               <span>{stop.charge}</span>
             </div>
           )}
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: 14,
+              paddingTop: 12,
+              borderTop: "1px solid rgba(184,150,90,0.15)",
+            }}
+          >
+            <div
+              style={{
+                fontFamily: "sans-serif",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: MUTED,
+              }}
+            >
+              Estimated cost
+            </div>
+            <div
+              style={{
+                fontFamily: "sans-serif",
+                fontSize: 15,
+                fontWeight: 600,
+                color: stop.price ? DARK : "rgba(184,150,90,0.35)",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              {stop.price || "—"}
+            </div>
+          </div>
         </div>
       </Card>
       <Card>
