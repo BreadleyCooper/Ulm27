@@ -59,7 +59,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1491557345352-5929e343eb89?w=800&q=80",
     color: "#2d6a4f",
-    price: "",
+    price: "€147 - €177",
   },
   {
     id: "ghent",
@@ -82,7 +82,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1559329255-5c9b3f0f9e8e?w=800&q=80",
     color: "#1b4332",
-    price: "",
+    price: "€269",
   },
   {
     id: "utrecht",
@@ -106,7 +106,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1567521464027-f127ff144326?w=800&q=80",
     color: "#1d3557",
-    price: "",
+    price: "€117 - €150",
   },
   {
     id: "cologne",
@@ -129,7 +129,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1573455494060-c5595004fb6c?w=800&q=80",
     color: "#3d2b1f",
-    price: "",
+    price: "€250",
   },
   {
     id: "heidelberg",
@@ -153,7 +153,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1599946347371-68eb71b16afc?w=800&q=80",
     color: "#4a2040",
-    price: "",
+    price: "€100",
   },
   {
     id: "ulm",
@@ -176,7 +176,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=800&q=80",
     color: "#1a3a4a",
-    price: "",
+    price: "€190",
   },
   {
     id: "iseltwald",
@@ -200,7 +200,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
     color: "#1a4a3a",
-    price: "",
+    price: "€200",
   },
   {
     id: "colmar",
@@ -223,7 +223,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1589083130544-0d6a2926e519?w=800&q=80",
     color: "#5c2a0e",
-    price: "",
+    price: "€155",
   },
   {
     id: "reims",
@@ -247,7 +247,7 @@ const stops = [
     image:
       "https://images.unsplash.com/photo-1548018560-c7196548a4f8?w=800&q=80",
     color: "#2a1a4a",
-    price: "",
+    price: "€145",
   },
   {
     id: "home",
@@ -264,6 +264,21 @@ const GOLD = "#b8965a";
 const DARK = "#1a1714";
 const PAPER = "#f5f0e8";
 const MUTED = "#7a7268";
+
+const ABRP_URL =
+  "https://abetterrouteplanner.com/?plan_uuid=2-6a1b1a6f-3303f133443a3ce27a218985";
+
+function parsePriceRange(str) {
+  if (!str) return null;
+  const nums = str.replace(/[€£,]/g, "").split(/\s*[-–]\s*/).map(Number).filter(Boolean);
+  return { min: Math.min(...nums), max: Math.max(...nums) };
+}
+
+const hotelTotals = stops.reduce((acc, s) => {
+  const p = parsePriceRange(s.price);
+  if (!p) return acc;
+  return { min: acc.min + p.min, max: acc.max + p.max };
+}, { min: 0, max: 0 });
 
 export default function RoadTripPresentation() {
   const [current, setCurrent] = useState(0);
@@ -506,23 +521,84 @@ function PhotoGallery({ photos, label }) {
       <img
         src={photos[0]}
         alt={label}
-        style={{ width: "100%", height: 210, objectFit: "cover", display: "block" }}
+        style={{
+          width: "100%",
+          height: 210,
+          objectFit: "cover",
+          display: "block",
+        }}
       />
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, marginTop: 2 }}>
-        <img src={photos[1]} alt={label} style={{ width: "100%", height: 130, objectFit: "cover", display: "block" }} />
-        <img src={photos[2]} alt={label} style={{ width: "100%", height: 130, objectFit: "cover", display: "block" }} />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: 2,
+          marginTop: 2,
+        }}
+      >
+        <img
+          src={photos[1]}
+          alt={label}
+          style={{
+            width: "100%",
+            height: 130,
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+        <img
+          src={photos[2]}
+          alt={label}
+          style={{
+            width: "100%",
+            height: 130,
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
       </div>
       {extra.length === 1 && (
         <img
           src={extra[0]}
           alt={label}
-          style={{ width: "100%", height: 155, objectFit: "cover", display: "block", marginTop: 2 }}
+          style={{
+            width: "100%",
+            height: 155,
+            objectFit: "cover",
+            display: "block",
+            marginTop: 2,
+          }}
         />
       )}
       {extra.length >= 2 && (
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 2, marginTop: 2 }}>
-          <img src={extra[0]} alt={label} style={{ width: "100%", height: 130, objectFit: "cover", display: "block" }} />
-          <img src={extra[1]} alt={label} style={{ width: "100%", height: 130, objectFit: "cover", display: "block" }} />
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 2,
+            marginTop: 2,
+          }}
+        >
+          <img
+            src={extra[0]}
+            alt={label}
+            style={{
+              width: "100%",
+              height: 130,
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
+          <img
+            src={extra[1]}
+            alt={label}
+            style={{
+              width: "100%",
+              height: 130,
+              objectFit: "cover",
+              display: "block",
+            }}
+          />
         </div>
       )}
     </div>
@@ -706,7 +782,7 @@ function StopSlide({ stop }) {
                 color: MUTED,
               }}
             >
-              Estimated cost
+              Estimated cost per night
             </div>
             <div
               style={{
@@ -1077,6 +1153,69 @@ function HomeSlide({ stop }) {
               </span>
             </div>
           ))}
+        </div>
+      </Card>
+      <Card>
+        <div style={{ padding: "14px 18px" }}>
+          <div
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: GOLD,
+              marginBottom: 14,
+            }}
+          >
+            Trip Cost Estimate
+          </div>
+          {[
+            ["Hotels (9 nights)", `€${hotelTotals.min.toLocaleString()} – €${hotelTotals.max.toLocaleString()}`],
+            ["EV charging", "£178"],
+          ].map(([label, value]) => (
+            <div
+              key={label}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "baseline",
+                paddingBottom: 10,
+                marginBottom: 10,
+                borderBottom: "1px solid rgba(184,150,90,0.12)",
+              }}
+            >
+              <span style={{ fontFamily: "sans-serif", fontSize: 13, color: MUTED, fontWeight: 300 }}>
+                {label}
+              </span>
+              <span style={{ fontFamily: "sans-serif", fontSize: 15, fontWeight: 600, color: DARK }}>
+                {value}
+              </span>
+            </div>
+          ))}
+          <a
+            href={ABRP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              marginTop: 6,
+              padding: "10px 14px",
+              background: DARK,
+              borderRadius: 8,
+              textDecoration: "none",
+              color: PAPER,
+              fontFamily: "sans-serif",
+              fontSize: 13,
+              fontWeight: 500,
+              letterSpacing: "0.04em",
+            }}
+          >
+            <span>View full route on ABRP</span>
+            <span style={{ color: GOLD }}>→</span>
+          </a>
         </div>
       </Card>
     </div>
