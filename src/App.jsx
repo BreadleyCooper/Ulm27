@@ -30,6 +30,8 @@ import reims3 from "./assets/reims-3.jpg";
 import ulmHotel from "./assets/ulmhotel.webp";
 import rhineFalls from "./assets/rhinefalls.jpg";
 import interlaken from "./assets/interlaken.webp";
+import gruyeres1 from "./assets/gruyeres-1.jpg";
+import gruyeres2 from "./assets/gruyeres-2.jpg";
 
 const stops = [
   {
@@ -179,6 +181,21 @@ const stops = [
     price: "€190",
   },
   {
+    id: "rhinefalls",
+    type: "waypoint",
+    label: "Rhine Falls",
+    country: "Switzerland",
+    day: "Sat 14 Jun",
+    duration: "2–3 hours",
+    photo: rhineFalls,
+    drive: "Ulm → Rhine Falls",
+    driveTime: "~2 hrs",
+    driveSub: "~200 km via Singen",
+    charge:
+      "Charge at the Rhine Falls car park (Parkplatz Laufen-Uhwiesen) or in Schaffhausen before heading south.",
+    todo: "Europe's largest waterfall — 150 metres wide and 23 metres high, thundering year-round. Take the short boat ride to the rock in the middle of the falls for a soaking close-up view. Walk the viewing platforms on both banks. Arrive before 10am in summer to beat the tour coaches. Schaffhausen's perfectly painted medieval old town is just 3 km away and worth a 30-minute stroll before heading south to Iseltwald.",
+  },
+  {
     id: "iseltwald",
     label: "Iseltwald",
     country: "Switzerland",
@@ -196,11 +213,25 @@ const stops = [
     driveSub: "2h to Rhine Falls · 1h30 Rhine Falls to Iseltwald via Bern",
     charge:
       "Switzerland has excellent EV infrastructure. Charge at Rhine Falls car park or in Schaffhausen before heading south.",
-    todo: "Stop 2–3 hours at Rhine Falls on the way — Europe's largest waterfall. Take the boat to the rock in the middle. Arrive before 10am to beat coaches. Schaffhausen's medieval old town is 3km away and worth a walk.",
+    todo: "Morning walk along the shore of Lake Brienz — one of the most vivid turquoise lakes in Switzerland. The hotel provides free bus passes to Interlaken, worth a few hours exploring. For something more ambitious, take the cogwheel train from Interlaken toward Grindelwald or down into the Lauterbrunnen valley — thundering waterfalls, alpine meadows, and the Eiger looming above.",
     image:
       "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
     color: "#1a4a3a",
     price: "€200",
+  },
+  {
+    id: "gruyeres",
+    type: "waypoint",
+    label: "Gruyères",
+    country: "Switzerland",
+    day: "Mon 16 Jun",
+    duration: "2 hours",
+    photos: [gruyeres1, gruyeres2],
+    drive: "Iseltwald → Gruyères",
+    driveTime: "~1h 15 mins",
+    driveSub: "~90 km via Interlaken and Bern",
+    charge: null,
+    todo: "One of the most perfectly preserved medieval hilltop villages in Europe — no cars allowed inside the walls. Walk the single cobbled main street lined with stone houses dating back to the 13th century. Visit the castle for sweeping views over the pre-Alpine foothills. Stop for raclette or a fondue made with genuine Gruyère from the village creamery. A gentle, unhurried interlude before crossing the border into Alsace.",
   },
   {
     id: "colmar",
@@ -215,11 +246,11 @@ const stops = [
       "Built into the old city walls in Colmar's Little Venice district, right on the canal. Four-poster beds, wooden beams, brocade fabrics, and a terrace looking directly onto the most photographed waterway in Alsace. The most visually spectacular hotel of the whole trip.",
     tags: ["Little Venice canal", "Four-poster beds", "Historic city walls"],
     photos: [colmar1, colmar2, colmar3],
-    drive: "Iseltwald → Gruyères → Colmar",
-    driveTime: "~3 hrs total",
-    driveSub: "1h15 to Gruyères · 1h30 Gruyères to Colmar",
+    drive: "Gruyères → Colmar",
+    driveTime: "~1h 30 mins",
+    driveSub: "~140 km crossing into Alsace",
     charge: null,
-    todo: "Stop in Gruyères — a perfectly preserved medieval hilltop village, no cars inside the walls. Then into Alsace for Colmar's fairytale half-timbered streets. The evening in Little Venice is one of the finest moments of the whole trip.",
+    todo: "Colmar is one of the most photogenic towns in France. Wander the half-timbered Alsatian streets in the morning. The Unterlinden Museum houses Grünewald's haunting Isenheim Altarpiece — one of the most extraordinary paintings in the world. The evening in Little Venice, when canal light reflects off the old houses, is one of the finest moments of the whole trip.",
     image:
       "https://images.unsplash.com/photo-1589083130544-0d6a2926e519?w=800&q=80",
     color: "#5c2a0e",
@@ -386,6 +417,7 @@ export default function RoadTripPresentation() {
       <div style={{ padding: "0 16px 16px", maxWidth: 680, margin: "0 auto" }}>
         {stop.type === "overview" && <OverviewSlide goTo={goTo} />}
         {stop.type === "home" && <HomeSlide stop={stop} />}
+        {stop.type === "waypoint" && <WaypointSlide stop={stop} />}
         {!stop.type && <StopSlide stop={stop} />}
       </div>
 
@@ -831,6 +863,131 @@ function StopSlide({ stop }) {
   );
 }
 
+function WaypointSlide({ stop }) {
+  return (
+    <div>
+      <div style={{ paddingTop: 16, paddingBottom: 12, textAlign: "center" }}>
+        <div
+          style={{
+            fontFamily: "sans-serif",
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: GOLD,
+            marginBottom: 6,
+          }}
+        >
+          {stop.country}
+        </div>
+        <h2
+          style={{
+            fontSize: 34,
+            fontWeight: 400,
+            margin: 0,
+            lineHeight: 1.1,
+            letterSpacing: "-0.01em",
+          }}
+        >
+          {stop.label}
+        </h2>
+        <div
+          style={{
+            fontFamily: "sans-serif",
+            fontSize: 12,
+            color: MUTED,
+            marginTop: 10,
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            background: "rgba(184,150,90,0.1)",
+            borderRadius: 20,
+            padding: "4px 14px",
+          }}
+        >
+          <span>🏞️</span>
+          <span>Day stop · {stop.duration}</span>
+        </div>
+      </div>
+      <DriveBanner
+        drive={stop.drive}
+        driveTime={stop.driveTime}
+        driveSub={stop.driveSub}
+      />
+      <Card>
+        {stop.photos ? (
+          <div>
+            <img
+              src={stop.photos[0]}
+              alt={stop.label}
+              style={{ width: "100%", height: 220, objectFit: "cover", display: "block" }}
+            />
+            <img
+              src={stop.photos[1]}
+              alt={stop.label}
+              style={{ width: "100%", height: 160, objectFit: "cover", display: "block", marginTop: 2 }}
+            />
+          </div>
+        ) : (
+          <img
+            src={stop.photo}
+            alt={stop.label}
+            style={{ width: "100%", height: 300, objectFit: "cover", display: "block" }}
+          />
+        )}
+        <div style={{ padding: "14px 18px 16px" }}>
+          <div
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: 11,
+              fontWeight: 600,
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: GOLD,
+              marginBottom: 8,
+            }}
+          >
+            {stop.day}
+          </div>
+          <p
+            style={{
+              fontFamily: "sans-serif",
+              fontSize: 13,
+              color: MUTED,
+              lineHeight: 1.7,
+              margin: 0,
+              fontWeight: 300,
+            }}
+          >
+            {stop.todo}
+          </p>
+          {stop.charge && (
+            <div
+              style={{
+                display: "flex",
+                gap: 8,
+                alignItems: "flex-start",
+                background: "rgba(184,150,90,0.07)",
+                borderLeft: "2px solid rgba(184,150,90,0.4)",
+                borderRadius: "0 6px 6px 0",
+                padding: "8px 12px",
+                marginTop: 12,
+                fontFamily: "sans-serif",
+                fontSize: 12,
+                color: MUTED,
+                lineHeight: 1.5,
+              }}
+            >
+              <span>⚡</span>
+              <span>{stop.charge}</span>
+            </div>
+          )}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
 function OverviewSlide({ goTo }) {
   const routeStops = stops.filter((s) => s.id !== "overview");
   return (
@@ -927,9 +1084,11 @@ function OverviewSlide({ goTo }) {
                     background:
                       s.type === "home"
                         ? MUTED
-                        : s.id === "ulm"
-                          ? "#534AB7"
-                          : GOLD,
+                        : s.type === "waypoint"
+                          ? "rgba(184,150,90,0.45)"
+                          : s.id === "ulm"
+                            ? "#534AB7"
+                            : GOLD,
                   }}
                 />
                 <div>
@@ -962,8 +1121,22 @@ function OverviewSlide({ goTo }) {
                         — {s.hotel}
                       </span>
                     )}
+                    {s.type === "waypoint" && (
+                      <span
+                        style={{
+                          fontFamily: "sans-serif",
+                          fontSize: 11,
+                          color: GOLD,
+                          background: "rgba(184,150,90,0.1)",
+                          borderRadius: 10,
+                          padding: "1px 7px",
+                        }}
+                      >
+                        Day stop
+                      </span>
+                    )}
                   </div>
-                  {s.arrive && (
+                  {(s.arrive || s.day) && (
                     <div
                       style={{
                         fontFamily: "sans-serif",
@@ -974,7 +1147,9 @@ function OverviewSlide({ goTo }) {
                     >
                       {s.type === "home"
                         ? s.arrive
-                        : `${s.arrive} – ${s.depart} · ${s.nights}`}
+                        : s.type === "waypoint"
+                          ? `${s.day} · ${s.duration}`
+                          : `${s.arrive} – ${s.depart} · ${s.nights}`}
                     </div>
                   )}
                 </div>
